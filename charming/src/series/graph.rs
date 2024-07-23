@@ -270,6 +270,9 @@ pub struct Graph {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     emphasis: Option<Emphasis>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    auto_curveness: Option<bool>,
 }
 
 impl Graph {
@@ -298,6 +301,7 @@ impl Graph {
             data: vec![],
             edge_symbol: None,
             emphasis: None,
+            auto_curveness: None,
         }
     }
 
@@ -401,6 +405,12 @@ impl Graph {
     /// https://echarts.apache.org/en/option.html#series-graph.emphasis
     pub fn emphasis(mut self, emphasis: Emphasis) -> Self {
         self.emphasis = Some(emphasis);
+        self
+    }
+
+    /// https://echarts.apache.org/en/option.html#series-graph.autoCurveness
+    pub fn auto_curveness(mut self, auto_curveness: bool) -> Self {
+        self.auto_curveness = Some(auto_curveness);
         self
     }
 }
