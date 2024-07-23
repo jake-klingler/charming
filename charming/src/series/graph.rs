@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::element::{CoordinateSystem, Label, LabelLayout, LineStyle, ScaleLimit};
+use crate::element::{CoordinateSystem, Emphasis, Label, LabelLayout, LineStyle, ScaleLimit};
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -267,6 +267,9 @@ pub struct Graph {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     edge_symbol: Option<(String, String)>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    emphasis: Option<Emphasis>,
 }
 
 impl Graph {
@@ -294,6 +297,7 @@ impl Graph {
             links: vec![],
             data: vec![],
             edge_symbol: None,
+            emphasis: None,
         }
     }
 
@@ -391,6 +395,12 @@ impl Graph {
 
     pub fn edge_symbol(mut self, edge_symbol: Option<(String, String)>) -> Self {
         self.edge_symbol = edge_symbol;
+        self
+    }
+
+    /// https://echarts.apache.org/en/option.html#series-graph.emphasis
+    pub fn emphasis(mut self, emphasis: Emphasis) -> Self {
+        self.emphasis = Some(emphasis);
         self
     }
 }

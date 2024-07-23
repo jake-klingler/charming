@@ -19,6 +19,9 @@ pub enum EmphasisFocus {
 #[serde(rename_all = "camelCase")]
 pub struct Emphasis {
     #[serde(skip_serializing_if = "Option::is_none")]
+    disabled: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     focus: Option<EmphasisFocus>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,11 +37,17 @@ pub struct Emphasis {
 impl Emphasis {
     pub fn new() -> Self {
         Self {
+            disabled: None,
             focus: None,
             item_style: None,
             area_style: None,
             label: None,
         }
+    }
+
+    pub fn disabled(mut self, disabled: bool) -> Self {
+        self.disabled = Some(disabled);
+        self
     }
 
     pub fn focus<E: Into<EmphasisFocus>>(mut self, emphasis: E) -> Self {
