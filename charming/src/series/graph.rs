@@ -273,6 +273,9 @@ pub struct Graph {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     auto_curveness: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    selected_mode: Option<bool>,
 }
 
 impl Graph {
@@ -302,6 +305,7 @@ impl Graph {
             edge_symbol: None,
             emphasis: None,
             auto_curveness: None,
+            selected_mode: None,
         }
     }
 
@@ -411,6 +415,12 @@ impl Graph {
     /// https://echarts.apache.org/en/option.html#series-graph.autoCurveness
     pub fn auto_curveness(mut self, auto_curveness: bool) -> Self {
         self.auto_curveness = Some(auto_curveness);
+        self
+    }
+
+    /// https://echarts.apache.org/en/option.html#series-graph.selectedMode
+    pub fn selected_mode(mut self, selected_mode: bool) -> Self {
+        self.selected_mode = Some(selected_mode);
         self
     }
 }
