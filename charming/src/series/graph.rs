@@ -37,6 +37,9 @@ pub struct GraphLayoutForce {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     friction: Option<f64>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    repulsion: Option<f64>,
 }
 
 impl GraphLayoutForce {
@@ -47,6 +50,7 @@ impl GraphLayoutForce {
             edge_length: None,
             layout_animation: None,
             friction: None,
+            repulsion: None,
         }
     }
 
@@ -72,6 +76,12 @@ impl GraphLayoutForce {
 
     pub fn friction(mut self, friction: f64) -> Self {
         self.friction = Some(friction);
+        self
+    }
+
+    /// https://echarts.apache.org/en/option.html#series-graph.force.repulsion
+    pub fn repulsion(mut self, repulsion: f64) -> Self {
+        self.repulsion = Some(repulsion);
         self
     }
 }
