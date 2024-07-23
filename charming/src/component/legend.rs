@@ -162,6 +162,9 @@ pub struct Legend {
     selected_mode: Option<LegendSelectedMode>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
+    selector: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     border_color: Option<Color>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -197,6 +200,7 @@ impl Legend {
             symbol_rotate: None,
             formatter: None,
             selected_mode: None,
+            selector: None,
             border_color: None,
             inactive_color: None,
             data: vec![],
@@ -310,6 +314,11 @@ impl Legend {
 
     pub fn selected_mode<S: Into<LegendSelectedMode>>(mut self, selected_mode: S) -> Self {
         self.selected_mode = Some(selected_mode.into());
+        self
+    }
+
+    pub fn selector(mut self, selector: bool) -> Self {
+        self.selector = Some(selector);
         self
     }
 
